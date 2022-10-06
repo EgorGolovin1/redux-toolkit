@@ -40,7 +40,7 @@ const TodoItem = ({ id, title, completed, isEditing }) => {
 
   return (
     <li className={completed ? "todo-item checked" : "todo-item"}>
-      <div onClick={() => addEdet()}>
+      <button className="wrapper" onClick={() => addEdet()}>
         {isEditing ? (
           <input
             type="textarea"
@@ -51,7 +51,7 @@ const TodoItem = ({ id, title, completed, isEditing }) => {
         ) : (
           <div className="todo-item-description">{title}</div>
         )}
-      </div>
+      </button>
       <div className="tasks-buttons">
         <input
           type="checkbox"
@@ -61,13 +61,16 @@ const TodoItem = ({ id, title, completed, isEditing }) => {
             completed ? "tasks-btn-complete" : "tasks-btn-complete checked"
           }
         />
-        <div className="tasks-btn-delete " onClick={() => removeTask()}></div>
+        <button
+          className="tasks-btn-delete "
+          onClick={() => removeTask()}
+        ></button>
       </div>
     </li>
   );
 };
 TodoItem.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.string,
   title: PropTypes.string,
   completed: PropTypes.bool,
   isEditing: PropTypes.bool,

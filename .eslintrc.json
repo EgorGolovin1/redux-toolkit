@@ -17,5 +17,15 @@
     "sourceType": "module"
   },
   "plugins": ["react"],
-  "rules": {}
+  "rules": {
+    "jsx-a11y/click-events-have-key-events": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "jsx-a11y/click-events-have-key-events": "off"
+    }
+  }
 }

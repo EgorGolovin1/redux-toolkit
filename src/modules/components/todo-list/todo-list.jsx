@@ -30,7 +30,7 @@ const TodoList = ({ todos, activeFilter }) => {
 };
 
 TodoList.propTypes = {
-  todos: [],
+  todos: PropTypes.array,
   activeFilter: PropTypes.string,
 };
 
