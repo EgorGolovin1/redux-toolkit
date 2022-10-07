@@ -1,8 +1,15 @@
+$var1: #e0f0e5
+$var2: #000000
+$var3: #286562
+$var4: #e7544d
+$var5: #efa501
+$var6: #e3535d
+
 .todo-filter 
 	width: 450px
 	height: 65px
 	margin-top: 10px
-	background-color: #e0f0e5
+	background-color: $var1
 	opacity: 0.7
 	border-radius: 2px 2px 20px 20px
 	font-size: 14px
@@ -29,15 +36,16 @@
 		box-shadow: none
 		margin: 10px 10px 0px 0px
 		cursor: pointer
+		color: $var2
 		&:hover 
-			border-bottom: 2px solid #286562
-			color: #286562
+			border-bottom: 2px solid $var3
+			color: $var3
 		&.delete:hover 
-			border-bottom: 2px solid #e7544d
-			color: #e7544d
+			border-bottom: 2px solid $var4
+			color: $var4
 	.btn.tabbed
-		border-bottom: 2px solid #efa501
-		color: #efa501
+		border-bottom: 2px solid $var5
+		color: $var5
 		
 	
 
@@ -58,7 +66,7 @@
 
 .btn.clear:hover 
 	text-decoration: underline
-	color: #e3535d
+	color: $var6
 	border-bottom: none
 	display: block
 

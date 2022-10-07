@@ -40,10 +40,6 @@ const ToDoFilter = ({ activeFilter }) => {
   const amountArr = todos.filter((todo) => !todo.completed);
   let amount = amountArr.length;
 
-  // let className = classNames("btn", {
-  //   tabbed: activeFilter === id,
-  // });
-
   if (todos.length)
     return (
       <div className="todo-filter">
