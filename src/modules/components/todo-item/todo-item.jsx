@@ -8,6 +8,7 @@ import {
 } from "../../redux/tasksSlice";
 
 import PropTypes from "prop-types";
+import classNames from "classnames/bind";
 
 import "./todo-item.sass";
 
@@ -39,7 +40,7 @@ const TodoItem = ({ id, title, completed, isEditing }) => {
   };
 
   return (
-    <li className={completed ? "todo-item checked" : "todo-item"}>
+    <li className={classNames("todo-item", { checked: completed })}>
       <button className="wrapper" onClick={() => addEdet()}>
         {isEditing ? (
           <input
@@ -57,9 +58,7 @@ const TodoItem = ({ id, title, completed, isEditing }) => {
           type="checkbox"
           checked={completed}
           onChange={() => completeTask()}
-          className={
-            completed ? "tasks-btn-complete" : "tasks-btn-complete checked"
-          }
+          className={classNames("tasks-btn-complete", { checked: completed })}
         />
         <button
           className="tasks-btn-delete "

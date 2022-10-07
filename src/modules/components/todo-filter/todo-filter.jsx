@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeFilter, clearAll } from "../../redux/tasksSlice";
 
 import PropTypes from "prop-types";
+import classNames from "classnames/bind";
 
 import "./todo-filter.sass";
 
@@ -39,6 +40,10 @@ const ToDoFilter = ({ activeFilter }) => {
   const amountArr = todos.filter((todo) => !todo.completed);
   let amount = amountArr.length;
 
+  // let className = classNames("btn", {
+  //   tabbed: activeFilter === id,
+  // });
+
   if (todos.length)
     return (
       <div className="todo-filter">
@@ -50,7 +55,7 @@ const ToDoFilter = ({ activeFilter }) => {
                 editFilter(id);
               }}
               key={id}
-              className={id === activeFilter ? "btn tabbed" : "btn"}
+              className={classNames("btn", { tabbed: activeFilter === id })}
             >
               {text}
             </button>

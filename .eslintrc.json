@@ -17,15 +17,12 @@
     "sourceType": "module"
   },
   "plugins": ["react"],
-  "rules": {
-    "jsx-a11y/click-events-have-key-events": "off"
-  },
+  "rules": {},
   "settings": {
     "import/resolver": {
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      },
-      "jsx-a11y/click-events-have-key-events": "off"
+      }
     }
   }
 }
