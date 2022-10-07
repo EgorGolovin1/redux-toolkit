@@ -3,6 +3,7 @@ import ToDoInput from "./modules/components/todo-input/todo-input";
 import TodoList from "./modules/components/todo-list/todo-list";
 import Title from "./modules/components/title/title";
 import ToDoFilter from "./modules/components/todo-filter/todo-filter";
+import Notes from "./modules/components/todo-notes/todo-notes";
 
 import { useSelector } from "react-redux";
 
@@ -22,6 +23,7 @@ const ToDo = () => {
       <ToDoInput />
       <TodoList todos={todos} activeFilter={activeFilter} />
       <ToDoFilter activeFilter={activeFilter} />
+      <Notes />
     </div>
   );
 };
