@@ -1,6 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeFilter, clearAll } from "../../redux/tasksSlice";
+import {
+  changeFilter,
+  clearAll,
+  actualAmountTodos,
+  generalAmountTodos,
+  actualFilter,
+} from "../../redux/tasksSlice";
 
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
@@ -22,7 +28,7 @@ const FILTERS_BTN = [
   },
 ];
 
-const ToDoFilter = ({ activeFilter }) => {
+const ToDoFilter = () => {
   const dispatch = useDispatch();
 
   const editFilter = (type) => {
@@ -33,17 +39,16 @@ const ToDoFilter = ({ activeFilter }) => {
     dispatch(clearAll());
   };
 
-  const todos = useSelector((state) => {
-    return state.tasks.tasks;
-  });
+  const todosActive = useSelector(actualAmountTodos);
+  const todos = useSelector(generalAmountTodos);
+  const filter = useSelector(actualFilter);
 
-  const amountArr = todos.filter((todo) => !todo.completed);
-  let amount = amountArr.length;
+  const todosActiveAmount = todosActive.length;
 
   if (todos.length)
     return (
       <div className="todo-filter">
-        <span className="amount">{` Tasks left ${amount}`}</span>
+        <span className="amount">{` Tasks left ${todosActiveAmount}`}</span>
         <div className="btn-group">
           {FILTERS_BTN.map(({ text, id }) => (
             <button
@@ -51,7 +56,7 @@ const ToDoFilter = ({ activeFilter }) => {
                 editFilter(id);
               }}
               key={id}
-              className={classNames("btn", { tabbed: activeFilter === id })}
+              className={classNames("btn", { tabbed: filter === id })}
             >
               {text}
             </button>
@@ -70,7 +75,7 @@ const ToDoFilter = ({ activeFilter }) => {
 };
 
 ToDoFilter.propTypes = {
-  activeFilter: PropTypes.string,
+  actualFilter: PropTypes.string,
 };
 
 export default ToDoFilter;

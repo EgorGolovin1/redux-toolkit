@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTask } from "../../redux/tasksSlice";
 
-import { uid } from "uid";
-
 import "./todo-input.sass";
 
 const ToDoInput = () => {
@@ -22,7 +20,6 @@ const ToDoInput = () => {
 
     dispatch(
       addTask({
-        id: uid(),
         description: value,
       })
     );

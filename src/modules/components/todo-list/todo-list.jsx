@@ -1,22 +1,18 @@
 import React from "react";
 import TodoItem from "../todo-item/todo-item";
+import { useSelector } from "react-redux";
+
+import { filteredTodoList } from "../../redux/tasksSlice";
 
 import PropTypes from "prop-types";
 
 import "./todo-list.sass";
 
-const TodoList = ({ todos, activeFilter }) => {
-  const filteredTodoList = todos.filter((item) => {
-    if (activeFilter === "active") {
-      return item.completed === false;
-    }
-    if (activeFilter === "completed") {
-      return item.completed === true;
-    } else return true;
-  });
+const TodoList = () => {
+  const todos = useSelector(filteredTodoList);
   return (
-    <ul className="tasks-list">
-      {filteredTodoList.map((todo) => (
+    <ul key={"list"} className="tasks-list">
+      {todos.map((todo) => (
         <TodoItem
           key={todo.id}
           id={todo.id}
@@ -31,7 +27,6 @@ const TodoList = ({ todos, activeFilter }) => {
 
 TodoList.propTypes = {
   todos: PropTypes.array,
-  activeFilter: PropTypes.string,
 };
 
 export default TodoList;

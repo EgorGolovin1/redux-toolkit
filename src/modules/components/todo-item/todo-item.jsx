@@ -41,7 +41,7 @@ const TodoItem = ({ id, title, completed, isEditing }) => {
 
   return (
     <li className={classNames("todo-item", { checked: completed })}>
-      <button className="wrapper" onClick={() => addEdet()}>
+      <button className="wrapper" onDoubleClick={() => addEdet()}>
         {isEditing ? (
           <input
             type="textarea"

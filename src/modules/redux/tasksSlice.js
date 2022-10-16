@@ -1,96 +1,80 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createSelector } from "@reduxjs/toolkit";
 
-const getInitialTodo = () => {
-  const localTodoList = window.localStorage.getItem("tasks");
-  if (localTodoList) {
-    return JSON.parse(localTodoList);
+import { uid } from "uid";
+
+const getTodos = (state) => state.tasks.tasks;
+const getActiveFilter = (state) => state.tasks.filterStatus;
+
+export const actualAmountTodos = createSelector(getTodos, (todos) => {
+  return todos.filter((t) => !t.completed);
+});
+
+export const actualFilter = createSelector(getActiveFilter, (filter) => {
+  return filter;
+});
+
+export const generalAmountTodos = createSelector(getTodos, (todos) => {
+  return todos;
+});
+
+export const filteredTodoList = createSelector(
+  [getActiveFilter, getTodos],
+  (filterStatus, todos) => {
+    switch (filterStatus) {
+      case "all":
+        return todos;
+      case "completed":
+        return todos.filter((t) => t.completed);
+      case "active":
+        return todos.filter((t) => !t.completed);
+    }
   }
-
-  window.localStorage.setItem("tasks", JSON.stringify([]));
-  return [];
-};
+);
 
 const initialValue = {
-  tasks: getInitialTodo(),
+  tasks: [],
   filterStatus: "all",
 };
+
 export const tasksSlice = createSlice({
   name: "ToDo",
   initialState: initialValue,
   reducers: {
     addTask(state, action) {
+      const id = uid();
       state.tasks.push({
-        id: action.payload.id,
-        description: action.payload.description,
+        ...action.payload,
+        id: id,
         completed: false,
         isEditing: false,
       });
-      const tasks = window.localStorage.getItem("tasks");
-      if (tasks) {
-        const tasksArr = JSON.parse(tasks);
-        tasksArr.push({
-          ...action.payload,
-          completed: false,
-          isEditing: false,
-        });
-        window.localStorage.setItem("tasks", JSON.stringify(tasksArr));
-      } else {
-        window.localStorage.setItem(
-          "tasks",
-          JSON.stringify([
-            {
-              ...action.payload,
-              completed: false,
-              isEditing: false,
-            },
-          ])
-        );
-      }
     },
     deleteTask(state, action) {
-      const tasks = window.localStorage.getItem("tasks");
-      if (tasks) {
-        let tasksArr = JSON.parse(tasks);
-        tasksArr = tasksArr.filter((todo) => todo.id !== action.payload);
-        window.localStorage.setItem("tasks", JSON.stringify(tasksArr));
-        state.tasks = tasksArr;
-      }
+      let tasks = state.tasks;
+      tasks = tasks.filter((todo) => todo.id !== action.payload);
+      state.tasks = tasks;
     },
     toggleTask(state, action) {
-      const tasks = window.localStorage.getItem("tasks");
-      if (tasks) {
-        let tasksArr = JSON.parse(tasks);
-        const todo = tasksArr.find((todo) => todo.id === action.payload);
-        todo.completed = !todo.completed;
-        window.localStorage.setItem("tasks", JSON.stringify(tasksArr));
-        state.tasks = tasksArr;
-      }
+      const tasks = state.tasks;
+      const task = tasks.find((todo) => todo.id === action.payload);
+      task.completed = !task.completed;
+      state.tasks = tasks;
     },
     changeFilter(state, action) {
       state.filterStatus = action.payload;
     },
     clearAll(state) {
-      const tasks = window.localStorage.getItem("tasks");
-      if (tasks) {
-        let tasksArr = JSON.parse(tasks);
-        tasksArr = [];
-        window.localStorage.setItem("tasks", JSON.stringify(tasksArr));
-        state.tasks = tasksArr;
-      }
+      state.tasks = [];
     },
     addEdeting(state, action) {
       const todo = state.tasks.find((todo) => todo.id === action.payload);
       todo.isEditing = true;
     },
     configEdeting(state, action) {
-      const tasks = window.localStorage.getItem("tasks");
-      if (tasks) {
-        let tasksArr = JSON.parse(tasks);
-        const todo = tasksArr.find((todo) => todo.id === action.payload.id);
-        todo.description = action.payload.description;
-        window.localStorage.setItem("tasks", JSON.stringify(tasksArr));
-        state.tasks = tasksArr;
-      }
+      const tasks = state.tasks;
+      const task = tasks.find((todo) => todo.id === action.payload.id);
+      task.description = action.payload.description;
+      state.tasks = tasks;
     },
   },
 });
@@ -106,4 +90,3 @@ export const {
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
-

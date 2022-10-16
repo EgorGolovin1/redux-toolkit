@@ -5,24 +5,14 @@ import Title from "./modules/components/title/title";
 import ToDoFilter from "./modules/components/todo-filter/todo-filter";
 import Notes from "./modules/components/todo-notes/todo-notes";
 
-import { useSelector } from "react-redux";
-
 import "./todo.sass";
 const ToDo = () => {
-  const todos = useSelector((state) => {
-    return state.tasks.tasks;
-  });
-
-  const activeFilter = useSelector((state) => {
-    return state.tasks.filterStatus;
-  });
-
   return (
     <div className="todo-wrapper">
       <Title title="TODO" />
       <ToDoInput />
-      <TodoList todos={todos} activeFilter={activeFilter} />
-      <ToDoFilter activeFilter={activeFilter} />
+      <TodoList />
+      <ToDoFilter />
       <Notes />
     </div>
   );
